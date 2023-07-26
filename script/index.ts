@@ -1,5 +1,24 @@
-const game_input = document.querySelector(".game-input");
+const ptInput = document.querySelector(".pt-input") as HTMLInputElement;
+const ptButtonCreate = document.querySelector(".pt-button") as HTMLButtonElement;
 
-if (game_input == null) {
-  console.error("[ERROR]: Could not find game-input.");
-}
+ptInput?.addEventListener('input', (e) => {
+  const newInput = (e.target as HTMLInputElement).value;
+  
+  if (newInput === "") {
+    ptButtonCreate.disabled = true;
+    ptButtonCreate.classList.add("disabled");
+  } else {
+    ptButtonCreate.disabled = false;
+    ptButtonCreate.classList.remove("disabled");
+  }
+});
+
+
+ptButtonCreate?.addEventListener("click", (_) => {
+  console.log(`input.value = ${ptInput.value}`);
+});
+
+
+// For startup
+ptButtonCreate.disabled = true;
+ptButtonCreate.classList.add("disabled");

@@ -1,21 +1,49 @@
+import { newDeck, Deck, Card, } from './card'
 
 let players = [];
 
-interface Player {
-  _id: number,
-  name: string,
-  chips: number,
+class Player {
+  _id: number;
+  _name: string;
+  _chips!: number;
+  _currentBet: number = 0;
+
+  constructor(
+    id: number,
+    name: string,
+  ) {
+    this._id = id;
+    this._name = name;
+  }
 }
 
+class Poker {
+  _players: Array<Player> = [];
+  _deck: Deck = newDeck();
+  _smallBlind: number = 10;
+  
+  _smallBlindPlayer: number = 0;
+  _currentPlayer: number = 0;
+  _onGoingGame: boolean = false;
 
-function newPlayer(
-  name: string,
-  startingChips: number
-): Player {
+  get smallBlind() { return this._smallBlind; }
+  set smallBlind(value) { this._smallBlind = value; }
 
-  return {
-    _id: 0,
-    name,
-    chips: startingChips,
-  };
+  get bigBlind() { return 2 * this._smallBlind; }
+
+  // PLAYING GAME
+
+  play() {
+    this._onGoingGame = true;
+  }
+
+  /**
+   * Assumes a new round of poker has begun, and rotates around the blinds.
+   */
+  newRound() {
+    const nPlayers = this._players.length;
+
+    this._smallBlindPlayer = this._smallBlindPlayer++ % nPlayers;
+  }
 }
+
