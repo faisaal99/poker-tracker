@@ -1,5 +1,9 @@
+import { Poker } from './poker.js';
+
 const ptInput = document.querySelector(".pt-input") as HTMLInputElement;
 const ptButtonCreate = document.querySelector(".pt-button") as HTMLButtonElement;
+
+let pokerGame!: Poker;
 
 ptInput?.addEventListener('input', (e) => {
   const newInput = (e.target as HTMLInputElement).value;
@@ -15,7 +19,10 @@ ptInput?.addEventListener('input', (e) => {
 
 
 ptButtonCreate?.addEventListener("click", (_) => {
-  console.log(`input.value = ${ptInput.value}`);
+  pokerGame = new Poker(ptInput.value);
+
+  ptInput.parentElement?.removeChild(ptInput);
+  ptButtonCreate.parentElement?.removeChild(ptButtonCreate);
 });
 
 

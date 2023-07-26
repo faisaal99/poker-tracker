@@ -1,8 +1,6 @@
-import { newDeck, Deck, Card, } from './card'
+import { newDeck, Deck, Card, } from './card.js';
 
-let players = [];
-
-class Player {
+export class Player {
   _id: number;
   _name: string;
   _chips!: number;
@@ -17,7 +15,8 @@ class Player {
   }
 }
 
-class Poker {
+export class Poker {
+  _gameName: string;
   _players: Array<Player> = [];
   _deck: Deck = newDeck();
   _smallBlind: number = 10;
@@ -26,6 +25,10 @@ class Poker {
   _currentPlayer: number = 0;
   _onGoingGame: boolean = false;
 
+  constructor(name: string) {
+    this._gameName = name;
+  }
+  
   get smallBlind() { return this._smallBlind; }
   set smallBlind(value) { this._smallBlind = value; }
 
